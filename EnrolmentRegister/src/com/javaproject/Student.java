@@ -12,7 +12,7 @@ public class Student {
     private Character gender;
 
     // Use this to count total number of students as a maximum of 20 is set
-    Integer numberOfObjects = 0;
+    public static int numberOfObjects = 0;
 
     // Default Constructor
     public Student() {
@@ -73,6 +73,10 @@ public class Student {
 
     public Character getGender() {
         return gender;
+    }
+
+    public Integer getNumberOfObjects() {
+        return numberOfObjects;
     }
     // End of getters
 }
