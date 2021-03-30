@@ -1,6 +1,7 @@
 package com.javaproject;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Student {
 
@@ -13,18 +14,17 @@ public class Student {
     // Use this to count total number of students as a maximum of 20 is set
     Integer numberOfObjects = 0;
 
-    // A constructor for the class
+    // Default Constructor
+    public Student() {
+    }
+
+    // Create constructor for the class
     public Student(String name, LocalDate dateOfBirth, String address, Character gender) {
         this.setName(name);
         this.setDateOfBirth(dateOfBirth);
         this.setAddress(address);
         this.setGender(gender);
         numberOfObjects++;
-
-    }
-
-    public Student() {
-
     }
 
     // Start of setters
@@ -41,7 +41,20 @@ public class Student {
     }
 
     public void setGender(Character gender) {
-        this.gender = gender;
+        Scanner userInput = new Scanner(System.in);
+        Boolean loop = false;
+        while (loop == false) {
+            if (gender.toString().equals("M") || gender.toString().equals("F")) {
+                this.gender = gender;
+                loop = true;
+            } else {
+                System.out.println("Gender was not entered in required format of \"M\" or \"F\"");
+                System.out.print("Please enter a new gender: ");
+                Character newGender = userInput.next().charAt(0);
+                gender = newGender;
+                loop = false;
+            }
+        }
     }
     // End of setters
 
