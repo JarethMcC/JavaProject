@@ -38,15 +38,15 @@ public class Student {
 
     public void setGender(Character gender) {
         Scanner userInput = new Scanner(System.in);
-        boolean loop = false;
-        while (!loop) {
+        Boolean loop = false;
+        while (loop == false) {
             if (gender.toString().equals("M") || gender.toString().equals("F")) {
                 this.gender = gender;
                 loop = true;
             } else {
                 System.out.println("Gender was not entered in required format of \"M\" or \"F\"");
                 System.out.print("Please enter a new gender: ");
-                char newGender = userInput.next().charAt(0);
+                Character newGender = userInput.next().charAt(0);
                 gender = newGender;
                 loop = false;
             }
@@ -69,6 +69,10 @@ public class Student {
 
     public Character getGender() {
         return gender;
+    }
+
+    public Integer getNumberOfObjects() {
+        return numberOfObjects;
     }
     // End of getters
 }
