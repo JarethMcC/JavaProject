@@ -30,7 +30,7 @@ public class Main {
                 // Next two lines are to cast to other types to allow them to be used in the constructor
                 LocalDate castDOB = LocalDate.parse(asList[1]);
                 char castGender = asList[3].charAt(0);
-                Student newStudent = new Student(asList[0], castDOB, asList[2], castGender);
+                Student newStudent = new Student(asList[0], castDOB, asList[2], castGender, asList[4]);
                 studentList[i] = newStudent;
                 // i is used to append to the correct place in the array
                 i++;
@@ -152,7 +152,7 @@ public class Main {
         int longestName = 0;
         int longestAddress = 0;
 
-        String[] heading = {"Name", "DOB", "Address", "Gender"};
+        String[] heading = {"Name", "DOB", "Address", "Gender", "Course"};
 
         for (int i = 0; i < Student.numberOfObjects; i++) {
             int length = studentList[i].getName().length();
@@ -176,6 +176,7 @@ public class Main {
         StringBuilder nameGap = new StringBuilder("    ");
         String dobGap = "           ";
         StringBuilder addressGap = new StringBuilder("    ");
+        String genderGap = "    ";
 
         // Find the difference between the currently selected value and the longest and add the difference to the string
         int difference = longestName - heading[0].length();
@@ -192,7 +193,8 @@ public class Main {
         }
         System.out.print(heading[2] + addressGap);
 
-        System.out.print(heading[3]);
+        System.out.print(heading[3] + genderGap);
+        System.out.print(heading[4]);
         System.out.println();
 
         // Print formatted student details underneath headings
@@ -200,6 +202,8 @@ public class Main {
             nameGap = new StringBuilder("    ");
             dobGap = "    ";
             addressGap = new StringBuilder("    ");
+            genderGap = "         ";
+
 
             difference = longestName - studentList[j].getName().length();
             // Loop is used to create the gap as a string to insert between attributes
@@ -216,7 +220,9 @@ public class Main {
             }
             System.out.print(studentList[j].getAddress() + addressGap);
 
-            System.out.print(studentList[j].getGender());
+            System.out.print(studentList[j].getGender() + genderGap);
+
+            System.out.print(studentList[j].getCourse());
 
             System.out.println();
         }

@@ -10,16 +10,18 @@ public class Student {
     private LocalDate dateOfBirth;
     private String address;
     private Character gender;
+    private String course;
 
     // Use this to count total number of students as a maximum of 20 is set
     public static int numberOfObjects = 0;
 
     // Create constructor for the class
-    public Student(String name, LocalDate dateOfBirth, String address, Character gender) {
+    public Student(String name, LocalDate dateOfBirth, String address, Character gender, String course) {
         this.setName(name);
         this.setDateOfBirth(dateOfBirth);
         this.setAddress(address);
         this.setGender(gender);
+        this.setCourse(course);
         numberOfObjects++;
     }
 
@@ -38,20 +40,25 @@ public class Student {
 
     public void setGender(Character gender) {
         Scanner userInput = new Scanner(System.in);
-        Boolean loop = false;
-        while (loop == false) {
+        boolean loop = false;
+        while (!loop) {
             if (gender.toString().equals("M") || gender.toString().equals("F")) {
                 this.gender = gender;
                 loop = true;
             } else {
                 System.out.println("Gender was not entered in required format of \"M\" or \"F\"");
                 System.out.print("Please enter a new gender: ");
-                Character newGender = userInput.next().charAt(0);
+                char newGender = userInput.next().charAt(0);
                 gender = newGender;
                 loop = false;
             }
         }
     }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
     // End of setters
 
     // Start of getters
@@ -71,8 +78,8 @@ public class Student {
         return gender;
     }
 
-    public Integer getNumberOfObjects() {
-        return numberOfObjects;
+    public String getCourse() {
+        return course;
     }
     // End of getters
 }
