@@ -48,8 +48,7 @@ public class Student {
             } else {
                 System.out.println("Gender was not entered in required format of \"M\" or \"F\"");
                 System.out.print("Please enter a new gender: ");
-                char newGender = userInput.next().charAt(0);
-                gender = newGender;
+                gender = userInput.next().charAt(0);
                 loop = false;
             }
         }
@@ -58,7 +57,6 @@ public class Student {
     public void setCourse(String course) {
         this.course = course;
     }
-
     // End of setters
 
     // Start of getters

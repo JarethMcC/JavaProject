@@ -6,20 +6,24 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
+    // Course is created here, a class was created to allow expansion later if more courses are added
+    //Course course1 = new Course("Computer Science", "G400", "Casey Muratori");
     Student[] studentList = new Student[19];
+    Course[] courseList = new Course[19];
     boolean exit;
 
     public static void main(String[] args) {
         // Create an instance of Main
         Main main = new Main();
-        main.readFileAsObjects();
+        main.readCourseFile();
+        main.readStudentFile();
         main.runMenu();
     }
 
 
     // Opens the StudentInfo.txt file and reads in already created students, create them as objects and then append
     // them a studentList array
-    public Student [] readFileAsObjects() {
+    public void readStudentFile() {
         try {
             FileReader studentFile = new FileReader("StudentInfo.txt");
             Scanner fileReader = new Scanner(studentFile);
@@ -36,12 +40,32 @@ public class Main {
                 i++;
             }
             fileReader.close();
-            return studentList;
         } catch (FileNotFoundException e) {
             // Would like to make this create an empty studentInfo file and then allow the user to proceed
             System.out.println("StudentInfo file was not found");
         }
-        return null;
+    }
+
+    // Opens the StudentInfo.txt file and reads in already created students, create them as objects and then append
+    // them a studentList array
+    public void readCourseFile() {
+        try {
+            FileReader studentFile = new FileReader("CourseInfo.txt");
+            Scanner fileReader = new Scanner(studentFile);
+            int i = 0;
+            while (fileReader.hasNextLine()) {
+                String readInput = fileReader.nextLine();
+                String[] asList = readInput.split(",");
+                Course newCourse = new Course(asList[0], asList[1], asList[2]);
+                courseList[i] = newCourse;
+                // i is used to append to the correct place in the array
+                i++;
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            // Would like to make this create an empty studentInfo file and then allow the user to proceed
+            System.out.println("StudentInfo file was not found");
+        }
     }
 
 
@@ -59,7 +83,7 @@ public class Main {
         System.out.println("!_________________________________________!");
         System.out.println("!|                                       |!");
         System.out.println("!|               Welcome To              |!");
-        System.out.println("!|          Enrolement Register!         |!");
+        System.out.println("!|          Enrolment Register!          |!");
         System.out.println("!|_______________________________________|!");
     }
 
@@ -98,7 +122,7 @@ public class Main {
         switch (choice) {
             case 0:
                 exit = true;
-                System.out.println("\nThank You For Using Enrolement Register!");
+                System.out.println("\nThank You For Using Enrolment Register!");
                 break;
             case 1:
                 System.out.println("\nAdd Student Details");
@@ -115,8 +139,7 @@ public class Main {
                 break;
             case 4:
                 System.out.println("\nCourse Report");
-                String maleFemaleCount = maleFemaleSplit();
-                System.out.println(maleFemaleCount);
+                printReport();
                 printStudents(studentList);
                 break;
             default:
@@ -124,9 +147,16 @@ public class Main {
         }
     }
 
+    public void printReport() {
+        System.out.println("Course Name: " + courseList[0].getCourseName());
+        System.out.println("Course Code: " + courseList[0].getCourseCode());
+        System.out.println("Lecturer: " + courseList[0].getLecturer());
+        System.out.println("Total number of students: " + Student.numberOfObjects);
+        maleFemaleSplit();
+    }
 
     // Function that calculates the male-female split in the student list and provides a return as a percentage
-    public String maleFemaleSplit() {
+    public void maleFemaleSplit() {
         int maleCounter = 0;
         int femaleCounter = 0;
         // If the result equals M then increase maleCounter by 1, otherwise increase femaleCounter
@@ -141,7 +171,7 @@ public class Main {
         int malePercentage = (100 * maleCounter / Student.numberOfObjects);
         int femalePercentage = (100 * femaleCounter / Student.numberOfObjects);
 
-        return("Males: " + malePercentage + "%" + "  :  " + "Females: " + femalePercentage + "%");
+        System.out.println("Males: " + malePercentage + "%" + "  :  " + "Females: " + femalePercentage + "%");
     }
 
 
@@ -154,6 +184,7 @@ public class Main {
 
         String[] heading = {"Name", "DOB", "Address", "Gender", "Course"};
 
+        // Check each name/ address and if the selected name/ address is longer then replace longest
         for (int i = 0; i < Student.numberOfObjects; i++) {
             int length = studentList[i].getName().length();
             if (length > longestName) {
@@ -219,11 +250,8 @@ public class Main {
                 addressGap.append(" ");
             }
             System.out.print(studentList[j].getAddress() + addressGap);
-
             System.out.print(studentList[j].getGender() + genderGap);
-
             System.out.print(studentList[j].getCourse());
-
             System.out.println();
         }
     }
