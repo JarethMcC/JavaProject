@@ -2,7 +2,10 @@ package com.javaproject;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
@@ -46,6 +49,7 @@ public class Main {
         }
     }
 
+
     // Opens the StudentInfo.txt file and reads in already created students, create them as objects and then append
     // them a studentList array
     public void readCourseFile() {
@@ -65,6 +69,39 @@ public class Main {
         } catch (FileNotFoundException e) {
             // Would like to make this create an empty studentInfo file and then allow the user to proceed
             System.out.println("StudentInfo file was not found");
+        }
+    }
+
+
+    // Writes to the respective text file at the end of the session
+    public void writeStudentFile() {
+        try {
+            FileWriter fileWriter = new FileWriter("StudentInfo.txt");
+            for (int i = 0; i < Student.numberOfObjects; i++){
+                fileWriter.write(studentList[i].getName().strip() + "," + studentList[i].getDateOfBirth().toString().strip() + ","
+                                    + studentList[i].getAddress().strip() + "," + studentList[i].getGender().toString().strip() + ","
+                                    + studentList[i].getCourse().strip() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error: File not found");
+            e.printStackTrace();
+        }
+    }
+
+
+    // Writes to the respective text file at the end of the session
+    public void writeCourseFile() {
+        try {
+            FileWriter fileWriter = new FileWriter("CourseInfo.txt");
+            for (int i = 0; i < Course.numberOfObjects; i++){
+                fileWriter.write(courseList[i].getCourseName().strip() + "," + courseList[i].getCourseCode().strip() + ","
+                        + courseList[i].getLecturer().strip() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error: File not found");
+            e.printStackTrace();
         }
     }
 
@@ -117,11 +154,12 @@ public class Main {
         return choice;
     }
 
-
     private void runFunction(int choice) {
         switch (choice) {
             case 0:
                 exit = true;
+                writeStudentFile();
+                writeCourseFile();
                 System.out.println("\nThank You For Using Enrolment Register!");
                 break;
             case 1:
@@ -172,6 +210,13 @@ public class Main {
         int femalePercentage = (100 * femaleCounter / Student.numberOfObjects);
 
         System.out.println("Males: " + malePercentage + "%" + "  :  " + "Females: " + femalePercentage + "%");
+    }
+
+
+    // Formats the date of birth that is stored as LocalDate so that it prints in day/month/year format and returns it to be printed
+    public String dateFormatter(LocalDate date) {
+        String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return formattedDate;
     }
 
 
@@ -243,7 +288,7 @@ public class Main {
             }
             System.out.print(studentList[j].getName() + nameGap);
 
-            System.out.print (studentList[j].getDateOfBirth() + dobGap);
+            System.out.print (dateFormatter(studentList[j].getDateOfBirth()) + dobGap);
 
             difference = longestAddress - studentList[j].getAddress().length();
             for (int e = 0; e <= difference; e++) {

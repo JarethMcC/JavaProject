@@ -31,6 +31,7 @@ public class Student {
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
+
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -42,7 +43,7 @@ public class Student {
         Scanner userInput = new Scanner(System.in);
         boolean loop = false;
         while (!loop) {
-            if (gender.toString().equals("M") || gender.toString().equals("F")) {
+            if (gender == 'M' || gender == 'F') {
                 this.gender = gender;
                 loop = true;
             } else {

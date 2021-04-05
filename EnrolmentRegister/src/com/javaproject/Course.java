@@ -6,10 +6,14 @@ public class Course {
     private String courseCode;
     private String lecturer;
 
+    // Use this to count total number of courses for use in for loops
+    public static int numberOfObjects = 0;
+
     public Course(String courseName, String courseCode, String lecturer) {
         this.setCourseName(courseName);
         this.setCourseCode(courseCode);
         this.setLecturer(lecturer);
+        numberOfObjects++;
     }
 
     // Start of setters
