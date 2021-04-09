@@ -13,8 +13,10 @@ public class Main {
     //Course course1 = new Course("Computer Science", "G400", "Casey Muratori");
     Student[] studentList = new Student[19];
     Course[] courseList = new Course[19];
+    //Maximum amount of students allowed within the course
+    final int MAX = 20;
+    //exit used to close the menu
     boolean exit;
-
     public static void main(String[] args) {
         // Create an instance of Main
         Main main = new Main();
@@ -164,8 +166,7 @@ public class Main {
                 break;
             case 1:
                 System.out.println("\nAdd Student Details");
-
-                //ADD FUNCTION HERE
+                addStudent();
                 break;
             case 2:
                 System.out.println("\nRemove Student Details");
@@ -185,6 +186,41 @@ public class Main {
         }
     }
 
+    public void addStudent(){
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    if (Student.numberOfObjects < MAX){
+
+        Scanner userInput = new Scanner(System.in);
+
+        System.out.println("Enter Student Name");
+        String name = userInput.nextLine();
+
+        System.out.println("Enter Student Date Of Birth (Format DD/MM/YYYY)");
+        String dateOfBirthRaw = userInput.nextLine();
+        LocalDate dateOfBirth = LocalDate.parse(dateOfBirthRaw, dateTimeFormatter);
+
+
+        System.out.println("Enter Student Address");
+        String address = userInput.nextLine();
+
+        System.out.println("Enter Student Gender");
+        String tempGender = userInput.nextLine();
+        char gender = tempGender.charAt(0);
+
+        System.out.println("Enter Student Course");
+        String course = userInput.nextLine();
+
+        Student newStudent = new Student(name, dateOfBirth, address, gender, course);
+
+        studentList[Student.numberOfObjects - 1] = newStudent;
+    }
+    else {
+        System.out.println("Student Limit Reached!");
+    }
+    
+}
+
+    
     public void printReport() {
         System.out.println("Course Name: " + courseList[0].getCourseName());
         System.out.println("Course Code: " + courseList[0].getCourseCode());
