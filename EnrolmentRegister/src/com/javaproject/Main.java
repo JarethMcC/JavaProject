@@ -80,6 +80,11 @@ public class Main {
         try {
             FileWriter fileWriter = new FileWriter("StudentInfo.txt");
             for (int i = 0; i < Student.numberOfObjects; i++){
+                if (studentList[i].getName().equals("") && i == Student.numberOfObjects - 1) {
+                    break;
+                } else if (studentList[i].getName().equals("")){
+                    i++;
+                }
                 fileWriter.write(studentList[i].getName().strip() + "," + studentList[i].getDateOfBirth().toString().strip() + ","
                                     + studentList[i].getAddress().strip() + "," + studentList[i].getGender().toString().strip() + ","
                                     + studentList[i].getCourse().strip() + "\n");
@@ -192,23 +197,41 @@ public class Main {
 
         Scanner userInput = new Scanner(System.in);
 
-        System.out.println("Enter Student Name");
+        System.out.println("Enter Student Name:");
         String name = userInput.nextLine();
 
-        System.out.println("Enter Student Date Of Birth (Format DD/MM/YYYY)");
-        String dateOfBirthRaw = userInput.nextLine();
-        LocalDate dateOfBirth = LocalDate.parse(dateOfBirthRaw, dateTimeFormatter);
+        System.out.println("Enter Student Date Of Birth (Format DD/MM/YYYY):");
+        LocalDate dateOfBirth;
+        try {
+            String dateOfBirthRaw = userInput.nextLine();
+            dateOfBirth = LocalDate.parse(dateOfBirthRaw, dateTimeFormatter);
+        } catch (Exception e){
+            System.out.println("You did not enter a valid date of birth, the date of birth has been defaulted to 01/01/2000\n");
+            String dateOfBirthRaw = "01/01/2000";
+            dateOfBirth = LocalDate.parse(dateOfBirthRaw, dateTimeFormatter);
+        }
 
-
-        System.out.println("Enter Student Address");
+        System.out.println("Enter Student Address:");
         String address = userInput.nextLine();
 
-        System.out.println("Enter Student Gender");
-        String tempGender = userInput.nextLine();
-        char gender = tempGender.charAt(0);
+        System.out.println("Enter Student Gender:");
+        char gender;
+        try {
+            String tempGender = userInput.nextLine();
+            gender = tempGender.charAt(0);
+        } catch (Exception e) {
+            System.out.println("You did not enter a valid gender, the gender has been defaulted to M\n");
+            String tempGender = "M";
+            gender = tempGender.charAt(0);
+        }
 
-        System.out.println("Enter Student Course");
+        System.out.println("Enter Student Course:");
         String course = userInput.nextLine();
+
+        if (name.equals("") || address.equals("") || course.equals("")){
+            System.out.println("As one or more values have been left blank, this student record will not be saved at the end of the session");
+        }
+        System.out.println();
 
         Student newStudent = new Student(name, dateOfBirth, address, gender, course);
 
@@ -251,8 +274,7 @@ public class Main {
 
     // Formats the date of birth that is stored as LocalDate so that it prints in day/month/year format and returns it to be printed
     public String dateFormatter(LocalDate date) {
-        String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        return formattedDate;
+        return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
 
