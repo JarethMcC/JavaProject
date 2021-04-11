@@ -139,6 +139,7 @@ public class Main {
         System.out.println("[2] Remove Student Details");
         System.out.println("[3] Student Search");
         System.out.println("[4] Course Report");
+        System.out.println("[5] Print Students");
         System.out.println("[0] Exit");
     }
 
@@ -149,7 +150,7 @@ public class Main {
         //set init choice to -1
         int choice = -1;
         //while choice is invalid request input from user
-        while (choice < 0 || choice > 4) {
+        while (choice < 0 || choice > 5) {
             System.out.println("\n(Enter A Number Between 0-4)");
             try {
                 System.out.print("Enter Your Selection: ");
@@ -185,6 +186,9 @@ public class Main {
             case 4:
                 System.out.println("\nCourse Report");
                 printReport();
+                break;
+            case 5:
+                System.out.println("\nPrint Students");
                 printStudents(studentList);
                 break;
             default:
