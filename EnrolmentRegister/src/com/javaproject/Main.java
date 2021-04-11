@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -175,7 +176,7 @@ public class Main {
                 break;
             case 2:
                 System.out.println("\nRemove Student Details");
-                //REMOVE FUNCTION HERE
+                removeStudent();
                 break;
             case 3:
                 System.out.println("\nStudent Search");
@@ -240,9 +241,49 @@ public class Main {
     else {
         System.out.println("Student Limit Reached!");
     }
-    
 }
 
+    public void removeStudent() {
+        boolean loop = false;
+        while (!loop) {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Please enter the name of the student that you would like to delete: ");
+            String studentName = input.nextLine().toLowerCase();
+            for (int i = 0; i < Student.numberOfObjects; i++) {
+                if (studentList[i].getName().toLowerCase().contains(studentName)) {
+                    System.out.println(studentList[i].getName() + "\t" + studentList[i].getDateOfBirth() + "\t" +
+                            studentList[i].getAddress() + "\t" + studentList[i].getGender() + "\t" +
+                            studentList[i].getCourse());
+                    System.out.println("Is this the student that you wanted to delete? (Y for yes, anything else for no)");
+                    String yOrN = input.nextLine().toLowerCase();
+                    if (yOrN.equals("y")) {
+                        studentList[i] = null;
+                        Student.numberOfObjects -= 1;
+                    }
+                } else if (i == Student.numberOfObjects - 1) {
+                    System.out.println("Could not find a student by that name");
+                }
+            }
+            Student[] tempStudentList = new Student[19];
+            int numberOfStudents = 0;
+            for (int n = 0; n < Student.numberOfObjects + 1; n++) {
+                if (studentList[n] == null) {
+                    n = n;
+                } else if (studentList[n] != null) {
+                    tempStudentList[numberOfStudents] = studentList[n];
+                    numberOfStudents++;
+                }
+            }
+            studentList = tempStudentList;
+            System.out.println("Would you like to remove another student? (Y for yes, anything else for no)");
+            String yOrN = input.nextLine().toLowerCase();
+            if (yOrN.equals("y")) {
+                loop = false;
+            } else {
+                loop = true;
+            }
+        }
+    }
     
     public void printReport() {
         System.out.println("Course Name: " + courseList[0].getCourseName());
