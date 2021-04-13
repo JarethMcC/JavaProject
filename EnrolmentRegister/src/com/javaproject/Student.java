@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Student {
 
+
     private String name;
     // LocalDate takes the format Year, Month, Day, will have to change this later
     private LocalDate dateOfBirth;
@@ -55,9 +56,7 @@ public class Student {
         }
     }
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
+    public void setCourse(String course) {this.course = course; }
     // End of setters
 
     // Start of getters

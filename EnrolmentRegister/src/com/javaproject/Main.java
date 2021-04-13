@@ -6,14 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
     // Course is created here, a class was created to allow expansion later if more courses are added
     //Course course1 = new Course("Computer Science", "G400", "Casey Muratori");
-    Student[] studentList = new Student[19];
-    Course[] courseList = new Course[19];
+    Student[] studentList = new Student[20];
+    Course[] courseList = new Course[20];
     //Maximum amount of students allowed within the course
     final int MAX = 20;
     //exit used to close the menu
@@ -181,7 +180,7 @@ public class Main {
                 break;
             case 3:
                 System.out.println("\nStudent Search");
-                //SEARCH FUNCTION HERE
+                searchStudent();
                 break;
             case 4:
                 System.out.println("\nCourse Report");
@@ -253,11 +252,11 @@ public class Main {
             Scanner input = new Scanner(System.in);
             System.out.println("Please enter the name of the student that you would like to delete: ");
             String studentName = input.nextLine().toLowerCase();
+            Student [] foundStudent = new Student[1];
             for (int i = 0; i < Student.numberOfObjects; i++) {
                 if (studentList[i].getName().toLowerCase().contains(studentName)) {
-                    System.out.println(studentList[i].getName() + "\t" + studentList[i].getDateOfBirth() + "\t" +
-                            studentList[i].getAddress() + "\t" + studentList[i].getGender() + "\t" +
-                            studentList[i].getCourse());
+                    foundStudent[0] = studentList[i];
+                    printStudents(foundStudent);
                     System.out.println("Is this the student that you wanted to delete? (Y for yes, anything else for no)");
                     String yOrN = input.nextLine().toLowerCase();
                     if (yOrN.equals("y")) {
@@ -272,7 +271,7 @@ public class Main {
             int numberOfStudents = 0;
             for (int n = 0; n < Student.numberOfObjects + 1; n++) {
                 if (studentList[n] == null) {
-                    n = n;
+                    ;
                 } else if (studentList[n] != null) {
                     tempStudentList[numberOfStudents] = studentList[n];
                     numberOfStudents++;
@@ -288,7 +287,27 @@ public class Main {
             }
         }
     }
-    
+
+    public void searchStudent() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter the name of the student that you would like to search: ");
+        String studentName = input.nextLine().toLowerCase();
+        Student[] foundStudents = new Student[20];
+        int numberFoundStudents = 0;
+        for (int i = 0; i < Student.numberOfObjects; i++) {
+            if (studentList[i].getName().toLowerCase().contains(studentName)) {
+                foundStudents[numberFoundStudents] = studentList[i];
+                numberFoundStudents++;
+            } else if (i == Student.numberOfObjects - 1) {
+                System.out.println("Could not find a student by that name");
+            }
+        }
+        if(foundStudents[0] != null) {
+            printStudents(foundStudents);
+        }
+    }
+
+
     public void printReport() {
         System.out.println("Course Name: " + courseList[0].getCourseName());
         System.out.println("Course Code: " + courseList[0].getCourseCode());
@@ -324,21 +343,26 @@ public class Main {
 
 
     // Print students formatted so that it is more easily readable
-    public void printStudents(Student [] studentList) {
+    public void printStudents(Student [] studentsToPrint) {
 
         // Find the longest name and address to use to find what gap is needed between attributes
         int longestName = 0;
         int longestAddress = 0;
-
+        int numberOfStudents = 0;
+        for(int i = 0; i < studentsToPrint.length; i++) {
+            if (studentsToPrint[i] != null) {
+                numberOfStudents++;
+            }
+        }
         String[] heading = {"Name", "DOB", "Address", "Gender", "Course"};
 
         // Check each name/ address and if the selected name/ address is longer then replace longest
-        for (int i = 0; i < Student.numberOfObjects; i++) {
-            int length = studentList[i].getName().length();
+        for (int i = 0; i < numberOfStudents; i++) {
+            int length = studentsToPrint[i].getName().length();
             if (length > longestName) {
                 longestName = length;
             }
-            length = studentList[i].getAddress().length();
+            length = studentsToPrint[i].getAddress().length();
             if (length > longestAddress) {
                 longestAddress = length;
             }
@@ -377,29 +401,29 @@ public class Main {
         System.out.println();
 
         // Print formatted student details underneath headings
-        for (int j = 0; j < Student.numberOfObjects; j++) {
+        for (int j = 0; j < numberOfStudents; j++) {
             nameGap = new StringBuilder("    ");
             dobGap = "    ";
             addressGap = new StringBuilder("    ");
             genderGap = "         ";
 
 
-            difference = longestName - studentList[j].getName().length();
+            difference = longestName - studentsToPrint[j].getName().length();
             // Loop is used to create the gap as a string to insert between attributes
             for (int e = 0; e <= difference; e++) {
                 nameGap.append(" ");
             }
-            System.out.print(studentList[j].getName() + nameGap);
+            System.out.print(studentsToPrint[j].getName() + nameGap);
 
-            System.out.print (dateFormatter(studentList[j].getDateOfBirth()) + dobGap);
+            System.out.print (dateFormatter(studentsToPrint[j].getDateOfBirth()) + dobGap);
 
-            difference = longestAddress - studentList[j].getAddress().length();
+            difference = longestAddress - studentsToPrint[j].getAddress().length();
             for (int e = 0; e <= difference; e++) {
                 addressGap.append(" ");
             }
-            System.out.print(studentList[j].getAddress() + addressGap);
-            System.out.print(studentList[j].getGender() + genderGap);
-            System.out.print(studentList[j].getCourse());
+            System.out.print(studentsToPrint[j].getAddress() + addressGap);
+            System.out.print(studentsToPrint[j].getGender() + genderGap);
+            System.out.print(studentsToPrint[j].getCourse());
             System.out.println();
         }
     }
