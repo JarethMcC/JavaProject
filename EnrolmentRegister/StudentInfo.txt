@@ -1,6 +1,0 @@
-Steven Gerrard,1980-05-30,10 Glasgow Street,M,G400
-Elaine Wilson,1999-06-10,10 London Avenue,F,G400
-Bobby Brown,1975-11-11,45 Lisbon Road,F,G400
-Harry Styles,1996-06-03,Harvard Walk,M,G400
-Jareth,1998-03-16,10 Elaine Street,M,G400
-Harry Style,1996-06-03,Harvard Walk,M,G400
