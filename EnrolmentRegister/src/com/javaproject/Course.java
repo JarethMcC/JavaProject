@@ -8,6 +8,8 @@ public class Course {
 
     // Use this to count total number of courses for use in for loops
     public static int numberOfObjects = 0;
+    public static int numberOfMales = 0;
+    public static int numberOfFemales = 0;
 
     public Course(String courseName, String courseCode, String lecturer) {
         this.setCourseName(courseName);

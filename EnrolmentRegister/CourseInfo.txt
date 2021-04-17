@@ -1,1 +1,1 @@
-Computer Science,G400,Casey Muratori
+Computer Science,G400,Casey Muratori,19,18,1

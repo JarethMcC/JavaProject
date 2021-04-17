@@ -63,6 +63,9 @@ public class Main {
             while (fileReader.hasNextLine()) {
                 String readInput = fileReader.nextLine();
                 String[] asList = readInput.split(",");
+                Student.numberOfObjects = Integer.parseInt(asList[3]);
+                Course.numberOfMales = Integer.parseInt(asList[4]);
+                Course.numberOfFemales = Integer.parseInt(asList[5]);
                 Course newCourse = new Course(asList[0], asList[1], asList[2]);
                 courseList[i] = newCourse;
                 // i is used to append to the correct place in the array
@@ -82,7 +85,7 @@ public class Main {
             FileWriter fileWriter = new FileWriter("StudentInfo.txt");
             for (int i = 0; i < Student.numberOfObjects; i++) {
                 // If there is no content left to write to the file then break
-                if (studentList[i].getName().equals("") && i == Student.numberOfObjects - 1) {
+                if (studentList[i].getName().equals("") && i == Student.numberOfObjects) {
                     break;
                 } else if (studentList[i].getName().equals("")) {
                     // If there is no content in this place in the array then move to the next
@@ -106,7 +109,8 @@ public class Main {
             FileWriter fileWriter = new FileWriter("CourseInfo.txt");
             for (int i = 0; i < Course.numberOfObjects; i++) {
                 fileWriter.write(courseList[i].getCourseName().strip() + "," + courseList[i].getCourseCode().strip() + ","
-                        + courseList[i].getLecturer().strip() + "\n");
+                        + courseList[i].getLecturer().strip() + "," + Student.numberOfObjects + "," + Course.numberOfMales
+                        + "," + Course.numberOfFemales + "\n");
             }
             fileWriter.close();
         } catch (IOException e) {
@@ -250,6 +254,12 @@ public class Main {
             Student newStudent = new Student(name, dateOfBirth, address, gender, course);
             // numberOfObjects decremented by 1 as it does not start at 0 value
             studentList[Student.numberOfObjects - 1] = newStudent;
+            if (newStudent.getGender() == 'M') {
+                Course.numberOfMales++;
+            } else {
+                Course.numberOfFemales++;
+            }
+            Student.numberOfObjects++;
         } else {
             System.out.println("Student Limit Reached!");
         }
@@ -280,6 +290,11 @@ public class Main {
                         String yOrN = input.nextLine().toLowerCase();
                         numberFoundStudents++;
                         if (yOrN.equals("y")) {
+                            if (studentList[i].getGender() == 'M') {
+                                Course.numberOfMales--;
+                            } else {
+                                Course.numberOfFemales--;
+                            }
                             studentList[i] = null;
                             Student.numberOfObjects--;
                         }
@@ -354,21 +369,11 @@ public class Main {
     }
 
 
-    // Function that calculates the male-female split in the student list and provides a return as a percentage
+    // Gets the number of males and females from the course class, calculates them as a percentage and prints them
+    // for the report
     public void maleFemaleSplit() {
-        int maleCounter = 0;
-        int femaleCounter = 0;
-        // If the result equals M then increase maleCounter by 1, otherwise increase femaleCounter
-        for (int i = 0; i < (Student.numberOfObjects); i++) {
-            if (studentList[i].getGender().toString().equals("M")) {
-                maleCounter++;
-            } else {
-                femaleCounter++;
-            }
-        }
-        // Calculate the numbers as a percentage
-        int malePercentage = (100 * maleCounter / Student.numberOfObjects);
-        int femalePercentage = (100 * femaleCounter / Student.numberOfObjects);
+        int malePercentage = (100 * Course.numberOfMales / Student.numberOfObjects);
+        int femalePercentage = (100 * Course.numberOfFemales / Student.numberOfObjects);
 
         System.out.println("Males: " + malePercentage + "%" + "  :  " + "Females: " + femalePercentage + "%");
     }

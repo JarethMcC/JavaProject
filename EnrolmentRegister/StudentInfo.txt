@@ -1,0 +1,19 @@
+Larry Page,1973-03-26,Google Avenue,M,G400
+Dennis Ritchie,1941-09-09,C Lane,M,G400
+Bill Gates,1955-10-28,Microsoft Way,M,G400
+Mark Zuckerberg,1984-05-14,Facebook Street,M,G400
+Ken Thompson,1943-02-04,Unix Walk,M,G400
+Linus Torvalds,1969-12-28,Linux Gardens,M,G400
+Satoshi Nakamoto,1975-04-05,Bitcoin Avenue,M,G400
+Ada Lovelace,1815-12-10,Analytical lane,F,G400
+Tim Berners Lee,1955-06-08,WWW.Home.com,M,G400
+Alan Turing,1912-06-23,Turing Boulevard,M,G400
+Steve Wozniak,1950-08-11,Apple Avenue,M,G400
+Isaac Newton,1643-01-04,Gravity falls,M,G400
+Albert Einstein,1879-03-14,Quantum Street,M,G400
+John von Neumann,1903-12-28,Mathematicians Drive,M,G400
+Sergey Brin,1973-08-21,Google Avenue,M,G400
+Gabe Newell,1962-11-03,Steam Gardens,M,G400
+John Conway,1937-12-26,Life Walk,M,G400
+Jonathan Blow,1971-11-03,Braid Lane,M,G400
+John Carmack,1970-08-20,id Avenue,M,G400

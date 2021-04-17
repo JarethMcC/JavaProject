@@ -23,7 +23,6 @@ public class Student {
         this.setAddress(address);
         this.setGender(gender);
         this.setCourse(course);
-        numberOfObjects++;
     }
 
     // Start of setters
@@ -31,20 +30,21 @@ public class Student {
         this.name = name;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-
-        this.dateOfBirth = dateOfBirth;
-    }
+    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
+    // Checks to see if the input gender is an expected value and if not then asks the user to enter againStude
     public void setGender(Character gender) {
         Scanner userInput = new Scanner(System.in);
         boolean loop = false;
         while (!loop) {
-            if (gender == 'M' || gender == 'F') {
+            if (gender == 'M') {
+                this.gender = gender;
+                loop = true;
+            } else if (gender == 'F'){
                 this.gender = gender;
                 loop = true;
             } else {
@@ -56,28 +56,18 @@ public class Student {
         }
     }
 
-    public void setCourse(String course) {this.course = course; }
+    public void setCourse(String course) { this.course = course; }
     // End of setters
 
     // Start of getters
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
 
-    public String getAddress() {
-        return address;
-    }
+    public String getAddress() { return address; }
 
-    public Character getGender() {
-        return gender;
-    }
+    public Character getGender() { return gender; }
 
-    public String getCourse() {
-        return course;
-    }
+    public String getCourse() { return course; }
     // End of getters
 }
